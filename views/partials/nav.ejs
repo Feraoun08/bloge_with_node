@@ -1,0 +1,29 @@
+<nav>
+  <a class="brand" href="/">
+    <span class="brand-mark">B</span>
+    <span class="site-title"><h1>Blog Ninja</h1><p>Ideas in motion</p></span>
+  </a>
+  <div class="nav-actions">
+    <ul id="nav-menu">
+      <li><a class="<%= path === '/blogs' || path === '/' ? 'active' : '' %>" href="/blogs">Journal</a></li>
+      <li><a class="<%= path === '/about' ? 'active' : '' %>" href="/about">À propos</a></li>
+      <li><a class="<%= path === '/blogs/create' ? 'active' : '' %>" href="/blogs/create">Écrire <span aria-hidden="true">↗</span></a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Changer de thème">◐</button>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+<script>
+  const themeToggle = document.querySelector('.theme-toggle');
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navMenu = document.querySelector('#nav-menu');
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = nextTheme;
+    localStorage.setItem('blog-theme', nextTheme);
+  });
+  menuToggle.addEventListener('click', () => {
+    const open = navMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open);
+  });
+</script>

@@ -1,0 +1,23 @@
+<html lang="fr">
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/nav.ejs') %>
+  <main class="content article">
+    <div class="eyebrow">Note de journal</div>
+    <h2><%= blog.title %></h2>
+    <div class="card-meta"><span><%= Math.max(1, Math.ceil((blog.body || '').split(/\s+/).length / 200)) %> min de lecture</span><span>Blog Ninja / 2026</span></div>
+    <div class="article-body"><%= blog.body %></div>
+    <div class="article-actions"><a href="/blogs">← Toutes les notes</a><a class="delete" data-doc="<%= blog._id %>">Supprimer la note</a></div>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+  <script>
+    const trashcan = document.querySelector('a.delete');
+    trashcan.addEventListener('click', async () => {
+      if (!window.confirm('Supprimer définitivement cette note ?')) return;
+      const response = await fetch(`/blogs/${trashcan.dataset.doc}`, { method: 'DELETE' });
+      const data = await response.json();
+      window.location.href = data.redirect;
+    });
+  </script>
+</body>
+</html>

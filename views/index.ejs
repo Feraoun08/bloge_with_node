@@ -1,0 +1,54 @@
+<html lang="fr">
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/nav.ejs') %>
+  <main class="content">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Le journal des idées curieuses</div>
+        <h2>Lire.<br><em>Penser.</em><br>Recommencer.</h2>
+        <p class="hero-copy">Des notes courtes, des histoires longues et tout ce qui mérite un peu plus de temps.</p>
+      </div>
+      <div class="hero-card">
+        <strong>Une idée peut changer la direction d’une journée.</strong>
+        <span>01 — Édition ouverte</span>
+      </div>
+    </section>
+    <section aria-labelledby="latest-title">
+      <div class="toolbar">
+        <h3 id="latest-title">Dernières explorations <span aria-hidden="true">↘</span></h3>
+        <label class="search" for="blog-search"><span aria-hidden="true">⌕</span><input id="blog-search" type="search" placeholder="Rechercher une idée…" autocomplete="off"></label>
+      </div>
+      <% if (blogs.length > 0) { %>
+        <div class="blog-grid" id="blog-grid">
+          <% blogs.forEach((blog, index) => { %>
+            <a class="blog-card" href="/blogs/<%= blog._id %>" data-search="<%= `${blog.title} ${blog.snippet} ${blog.body}`.toLowerCase() %>">
+              <div><span class="card-index">0<%= index + 1 %> / NOTE</span><h3><%= blog.title %></h3><p><%= blog.snippet %></p></div>
+              <div class="card-meta"><span><%= Math.max(1, Math.ceil((blog.body || '').split(/\s+/).length / 200)) %> min de lecture</span><span>Lire ↗</span></div>
+            </a>
+          <% }) %>
+        </div>
+        <p class="empty-state" id="no-results" hidden>Aucune note ne correspond à cette recherche.</p>
+      <% } else { %>
+        <p class="empty-state">La première note est encore à écrire. <a href="/blogs/create">Commencer maintenant ↗</a></p>
+      <% } %>
+    </section>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+  <script>
+    const search = document.querySelector('#blog-search');
+    const cards = [...document.querySelectorAll('.blog-card')];
+    const noResults = document.querySelector('#no-results');
+    search?.addEventListener('input', ({ target }) => {
+      const query = target.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const matches = card.dataset.search.includes(query);
+        card.hidden = !matches;
+        if (matches) visible += 1;
+      });
+      if (noResults) noResults.hidden = visible !== 0;
+    });
+  </script>
+</body>
+</html>

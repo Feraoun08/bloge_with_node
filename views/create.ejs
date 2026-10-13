@@ -1,0 +1,20 @@
+<html lang="fr">
+<%- include('./partials/head.ejs') %>
+<body>
+  <%- include('./partials/nav.ejs') %>
+  <main class="content page-shell">
+    <section class="page-heading">
+      <div class="eyebrow">Atelier d’écriture</div>
+      <h2>Donnez une forme à votre prochaine idée.</h2>
+      <p>Un bon texte commence souvent par quelques lignes honnêtes. Prenez votre temps, le reste suivra.</p>
+    </section>
+    <form class="form-panel" action="/blogs" method="POST">
+      <div class="form-group"><label for="title">Titre de la note</label><input type="text" id="title" name="title" placeholder="Ex. Ce que les matins savent déjà" required></div>
+      <div class="form-group"><label for="snippet">Résumé en une phrase</label><input type="text" id="snippet" name="snippet" placeholder="Donnez envie d’aller plus loin" required></div>
+      <div class="form-group"><label for="body">Votre texte</label><textarea id="body" name="body" placeholder="Commencez ici…" required></textarea></div>
+      <button class="button" type="submit">Publier la note <span>↗</span></button>
+    </form>
+  </main>
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

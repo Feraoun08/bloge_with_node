@@ -1,0 +1,1 @@
+{"routes":[{"path":"/","title":"Journal"},{"path":"/blogs","title":"Journal"},{"path":"/blogs/create","title":"Écrire"},{"path":"/blogs/:id","title":"Note"},{"path":"/about","title":"À propos"}]}
